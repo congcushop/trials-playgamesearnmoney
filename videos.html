@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rewarded Videos — Watch, Earn a Little | TrialEarn</title>
+<meta name="description" content="Watch rewarded videos for small coin rewards on TrialEarn. Videos are a fun extra — the real money is in free trials, surveys and games.">
+<link rel="canonical" href="https://trials.playgamesearnmoney.com/videos.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Rewarded Videos — Watch, Earn a Little | TrialEarn">
+<meta property="og:description" content="Watch rewarded videos for small coin rewards. A fun extra — trials, surveys and games pay the real money.">
+<meta property="og:url" content="https://trials.playgamesearnmoney.com/videos.html">
+<meta property="og:site_name" content="TrialEarn">
+<meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="css/style.css">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+</head>
+<body>
+<div id="site-header"></div>
+
+<section class="hero"><div class="wrap">
+  <h1>🎬 Rewarded videos</h1>
+  <p>Watch a short video, earn a few coins. Videos are a fun filler between offers — not the main way to earn.</p>
+  <div class="chiprow">
+    <span class="chip">🪙 Small rewards</span>
+    <span class="chip">▶️ You choose to watch</span>
+    <span class="chip">🚫 Never required for payouts</span>
+  </div>
+</div></section>
+
+<div class="wrap">
+  <div class="adslot" data-network="adsterra">Advertisement</div>
+  <div class="card">
+    <h2>Watch &amp; earn</h2>
+    <div id="rewarded-video-box"></div>
+    <p class="muted">Honest note: videos pay $0.01–$0.10 each. If you want real money, do a <a href="trials.html">free trial ($1–$4)</a> or a <a href="games.html">game ($3–$12+)</a> instead — a video is just something to do while you wait.</p>
+  </div>
+  <div class="card">
+    <h2>Watching movies for money?</h2>
+    <p class="muted">No — there is no legitimate supply of "watch movies, get paid" offers. Any site promising that is a scam. We don't offer it, and you shouldn't trust anyone who does.</p>
+  </div>
+</div>
+
+<div id="site-footer"></div>
+<script>
+(function () {
+  const CFG = window.TRIALEARN_CONFIG || {};
+  const box = document.getElementById("rewarded-video-box");
+  if (!CFG.REWARDED_VIDEO_ZONE_URL) {
+    box.innerHTML = '<div class="warn"><b>Rewarded videos are being connected.</b> ' +
+      "The video provider is set up after the first real withdrawals are paid. " +
+      "Meanwhile, trials, surveys and games are live.</div>";
+    return;
+  }
+  box.innerHTML = '<p><button class="btn pink" id="watch-video-btn">▶ Watch a video — earn coins</button> ' +
+    '<span id="video-msg" class="muted"></span></p>' +
+    '<div id="video-slot"></div>';
+  document.getElementById("watch-video-btn").addEventListener("click", function () {
+    document.getElementById("video-msg").textContent = "Loading video…";
+    var s = document.createElement("script");
+    s.src = CFG.REWARDED_VIDEO_ZONE_URL;
+    s.async = true;
+    document.getElementById("video-slot").appendChild(s);
+  });
+})();
+</script>
+<script src="js/layout.js"></script>
+<script src="js/ads.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Music Corner — Listen While You Earn | TrialEarn</title>
+<meta name="description" content="Listen to music while you earn on TrialEarn. Music is a fun retention extra with tiny rewards — the real money is in free trials, surveys and games.">
+<link rel="canonical" href="https://trials.playgamesearnmoney.com/music.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Music Corner — Listen While You Earn | TrialEarn">
+<meta property="og:description" content="Listen to music while you earn. A fun extra with tiny rewards — trials, surveys and games pay the real money.">
+<meta property="og:url" content="https://trials.playgamesearnmoney.com/music.html">
+<meta property="og:site_name" content="TrialEarn">
+<meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="css/style.css">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+</head>
+<body>
+<div id="site-header"></div>
+
+<section class="hero"><div class="wrap">
+  <h1>🎵 Music corner</h1>
+  <p>Put on some music while you work through offers. Music is our chill-out corner — a little fun, tiny rewards.</p>
+  <div class="chiprow">
+    <span class="chip">🎧 Listen while you earn</span>
+    <span class="chip">🪙 Tiny rewards only</span>
+    <span class="chip">💰 Trials &amp; games pay the real money</span>
+  </div>
+</div></section>
+
+<div class="wrap">
+  <div class="adslot" data-network="infolinks">Advertisement</div>
+  <div class="card">
+    <h2>Focus music player</h2>
+    <div id="music-player"></div>
+    <p class="muted">Honest note: paid music-review work like SliceThePie's is that company's own supply — offerwalls don't carry it. Here, music is a retention extra with small bonus coins, not a main earner. The money is in <a href="trials.html">trials</a>, <a href="surveys.html">surveys</a> and <a href="games.html">games</a>.</p>
+  </div>
+</div>
+
+<div id="site-footer"></div>
+<script>
+(function () {
+  const CFG = window.TRIALEARN_CONFIG || {};
+  const box = document.getElementById("music-player");
+  if (!CFG.MUSIC_STREAM_URL) {
+    box.innerHTML = '<div class="warn"><b>The music player is being connected.</b> ' +
+      "We're wiring up a royalty-free stream now. Meanwhile, your offers are waiting on the trials page.</div>";
+    return;
+  }
+  box.innerHTML = '<audio controls style="width:100%" src="' + CFG.MUSIC_STREAM_URL + '"></audio>' +
+    '<p class="muted">Listening streaks earn small bonus coins — credited with your daily check-in.</p>';
+})();
+</script>
+<script src="js/layout.js"></script>
+<script src="js/ads.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+// ============================================================================
+// TrialEarn (site #3 — trials-led) — SITE CONFIG
+// Fill in the values as accounts are approved. ANY value left empty means
+// that stream stays dormant: no tag is loaded, no broken iframe is shown,
+// and the section renders an honest "coming soon" state.
+// NEVER put secret keys here — only public/publishable IDs and URLs.
+// ============================================================================
+window.TRIALEARN_CONFIG = {
+  // --- Brand / site ---------------------------------------------------------
+  SITE_NAME: "TrialEarn",
+  SITE_DOMAIN: "trials.playgamesearnmoney.com",
+  SITE_URL: "https://trials.playgamesearnmoney.com",
+  SUPPORT_EMAIL: "support@playgamesearnmoney.com",
+
+  // --- Shared Supabase backend (same project as sites #1 and #2) -----------
+  SUPABASE_URL: "", // e.g. "https://xxxxxxxx.supabase.co"
+  SUPABASE_ANON_KEY: "", // publishable anon key only — never the service key
+
+  // --- Coin economy (LOCKED — do not change without the owner) -------------
+  COINS_PER_DOLLAR: 1000,
+  USER_SHARE: 0.60, // user gets 60% of offerwall value
+  REFERRAL_PCT: 0.10, // referrer earns 10% of referred user's earnings
+  SIGNUP_BONUS_COINS: 250, // locked until first offer completes
+  CHECKIN_COINS: 10, // per day; day-7 streak = 100
+  CHECKIN_STREAK_BONUS_COINS: 100,
+  WITHDRAW_MIN_PAYPAL_USD: 5,
+  WITHDRAW_MIN_CRYPTO_USD: 1,
+  LEVEL_CAPS_USD: { 1: 5, 2: 10, 3: 25 }, // max per withdrawal by level
+  LEVEL_THRESHOLDS_OFFERS: { 2: 10, 3: 50 }, // offers completed to level up
+  FIRST_WITHDRAWAL_HOLD_HOURS: "24–72h + manual review",
+  PAYOUT_DAYS: "Tue + Fri (batched, daily cap applies)",
+  DAILY_PAYOUT_CAP_USD: 500, // site-level cap per payout day
+
+  // --- Offerwalls (shared with sites #1/#2 — ONE account each) ------------
+  // Paste the placement iframe/embed URL from each dashboard.
+  // Offerwall.GG: Placements → your placement → Embed (iframe URL).
+  // AdGem: Property → Web Offerwall → embed URL (contains your app id).
+  // The {USER_ID} token is replaced at runtime with the signed-in user id.
+  OFFERWALL_GG_IFRAME_URL: "", // e.g. "https://offerwall.gg/wall/XXXX?user={USER_ID}"
+  ADGEM_WALL_URL: "", // e.g. "https://api.adgem.com/v1/wall?appid=XXXX&playerid={USER_ID}"
+
+  // --- Extra survey routers -------------------------------------------------
+  // CPX Research: dashboard → integration → survey wall URL (app_id + ext_user_id).
+  // TheoremReach: dashboard → respondent link (api_key + user_id).
+  CPX_WALL_URL: "", // e.g. "https://offers.cpx-research.com/index.php?app_id=XXXX&ext_user_id={USER_ID}"
+  THEOREMREACH_URL: "", // e.g. "https://theoremreach.com/respondent?api_key=XXXX&user_id={USER_ID}"
+
+  // --- Rewarded video (Phase 2, now installed) ----------------------------
+  // Provider embed/zone for rewarded video. Only loads when configured.
+  // NEVER reward users for watching display ads — rewarded video only.
+  REWARDED_VIDEO_ZONE_URL: "",
+
+  // --- Music retention (SliceThePie-style, tiny rewards only) --------------
+  // Stream URL for the focus-music player. Empty = section shows "soon".
+  MUSIC_STREAM_URL: "",
+
+  // --- Cashback shopping (Phase 2, now installed) --------------------------
+  // Affiliate store list. Add {name, url, cashback} entries once affiliate
+  // accounts are approved. Empty = section shows an honest "soon" state.
+  CASHBACK_STORES: [],
+
+  // --- Fraud layer ----------------------------------------------------------
+  TURNSTILE_SITE_KEY: "", // Cloudflare Turnstile site key (signup/login/withdraw)
+  FINGERPRINTJS_ENABLED: true, // open-source FingerprintJS via CDN
+
+  // --- Ad networks: ALL 11 no-minimum networks ----------------------------
+  // Safe formats ONLY: banners, native, in-text, in-page push.
+  // NO popunders. NEVER reward users for viewing/clicking display ads.
+  // A network with an empty id is NOT loaded (code-ready, account pending).
+  ADS: {
+    // 1. Infolinks — in-text + in-fold only (no interstitial/sticky).
+    infolinks: { pid: "", wsid: 0 },
+    // 2. Monetag — in-page push ONLY, frequency-capped. No popunder/push/SmartLink.
+    monetag: { zoneId: "", tagDomain: "" }, // tagDomain assigned per account, e.g. "fpyf8.com"
+    // 3. Adsterra — native + display banners ONLY. No popunder/Social Bar/SmartLink.
+    adsterra: { bannerKey: "" },
+    // 4. Adcash — display/native/in-page push only. No popunder/interstitial/Autotag.
+    adcash: { zoneId: "" },
+    // 5. HilltopAds — banner/in-page push/video only. No popunder/MultiTag/Direct Link.
+    hilltopads: { zoneId: "" },
+    // 6. Clickadu — banner/in-page push/video pre-roll only. No popunder/push/SKIM.
+    clickadu: { zoneId: "" },
+    // 7. RichAds — native/in-page push/pre-roll video only. No push/popunder/Direct Click.
+    richads: { zoneId: "" },
+    // 8. Evadav — native/banner/in-page push only. No push/popunder.
+    evadav: { zoneId: "" },
+    // 9. PopAds — POPUNDER-ONLY network: NO safe format exists.
+    //    Deliberately NOT loaded (no-popunder rule). Account pending; add only
+    //    if the owner explicitly approves ONE capped popunder later.
+    popads: { enabled: false, note: "popunder-only, excluded by rule" },
+    // 10. Mondiad — native + banner only. No popunder/push/interstitial.
+    mondiad: { zoneId: "" },
+    // 11. Media.net — contextual native + display. Apply early; add when accepted.
+    medianet: { cid: "", crid: "" },
+  },
+
+  // --- Monetag push notifications (opt-in only) -----------------------------
+  MONETAG_PUSH_ENABLED: false, // turn on only after user opts in, test carefully
+};

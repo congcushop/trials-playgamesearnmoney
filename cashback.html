@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cashback Shopping — Earn Coins Back on Purchases | TrialEarn</title>
+<meta name="description" content="Shop through TrialEarn and earn coins back on your purchases. Cashback rates vary by store — part of the commission is shared with you as coins.">
+<link rel="canonical" href="https://trials.playgamesearnmoney.com/cashback.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Cashback Shopping — Earn Coins Back | TrialEarn">
+<meta property="og:description" content="Earn coins back when you shop through TrialEarn. Part of the store commission comes back to you.">
+<meta property="og:url" content="https://trials.playgamesearnmoney.com/cashback.html">
+<meta property="og:site_name" content="TrialEarn">
+<meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="css/style.css">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+</head>
+<body>
+<div id="site-header"></div>
+
+<section class="hero"><div class="wrap">
+  <h1>🛍️ Cashback shopping</h1>
+  <p>Buy something you were going to buy anyway — through our link — and part of the store's commission comes back to you as coins.</p>
+  <div class="chiprow">
+    <span class="chip">💰 1–10% back, by store</span>
+    <span class="chip">🪙 Paid in coins</span>
+    <span class="chip">✅ Only buy what you need</span>
+  </div>
+</div></section>
+
+<div class="wrap">
+  <div class="adslot" data-network="infolinks">Advertisement</div>
+  <div class="card">
+    <h2>Cashback stores</h2>
+    <div id="cashback-list"></div>
+  </div>
+  <div class="card">
+    <h2>How cashback works</h2>
+    <ol class="steps">
+      <li><b>Click a store</b> below — the click is tracked to your account.</li>
+      <li><b>Shop normally</b> and complete your purchase in the same visit.</li>
+      <li><b>Coins arrive</b> once the store confirms the purchase (usually days to weeks — returns cancel cashback).</li>
+    </ol>
+    <p class="muted">Cashback is a bonus, not the main earner — <a href="trials.html">free trials</a> and <a href="games.html">games</a> pay faster. Never buy something just for the cashback.</p>
+  </div>
+</div>
+
+<div id="site-footer"></div>
+<script>
+(function () {
+  const CFG = window.TRIALEARN_CONFIG || {};
+  const list = document.getElementById("cashback-list");
+  const stores = CFG.CASHBACK_STORES || [];
+  if (!stores.length) {
+    list.innerHTML = '<div class="warn"><b>Cashback stores are being added.</b> ' +
+      "We're signing up affiliate partners now — the first stores appear here as soon as they're live. " +
+      "Meanwhile, trials and games are already paying.</div>";
+    return;
+  }
+  list.innerHTML = '<div class="grid">' + stores.map(function (s) {
+    return '<div class="earn-card cash"><div class="ico">🛍️</div><h2>' + s.name + '</h2>' +
+      '<p class="pay">' + s.cashback + ' back</p>' +
+      '<p><a class="btn green" href="' + s.url + '" target="_blank" rel="nofollow sponsored">Shop &amp; earn →</a></p></div>';
+  }).join("") + "</div>";
+})();
+</script>
+<script src="js/layout.js"></script>
+<script src="js/ads.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

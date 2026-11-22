@@ -1,0 +1,8 @@
+# TrialEarn — trials.playgamesearnmoney.com
+# Allow full crawling (Google needs the JS to render pages).
+# Only the config file is kept out of the index.
+User-agent: *
+Allow: /
+Disallow: /config.js
+
+Sitemap: https://trials.playgamesearnmoney.com/sitemap.xml

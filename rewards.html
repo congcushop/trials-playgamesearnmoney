@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cash Out — Withdraw $5 PayPal / $1 Crypto | TrialEarn</title>
+<meta name="description" content="Cash out your TrialEarn coins: $5 minimum by PayPal, $1 by crypto (LTC/USDT). 1,000 coins = $1. First withdrawal is manually reviewed within 24–72h; payouts batched Tue + Fri.">
+<link rel="canonical" href="https://trials.playgamesearnmoney.com/rewards.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Cash Out — Withdraw $5 PayPal / $1 Crypto | TrialEarn">
+<meta property="og:description" content="Withdraw from $5 PayPal or $1 crypto. Level up to raise your per-withdrawal cap. Payouts batched Tue + Fri.">
+<meta property="og:url" content="https://trials.playgamesearnmoney.com/rewards.html">
+<meta property="og:site_name" content="TrialEarn">
+<meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="css/style.css">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+</head>
+<body>
+<div id="site-header"></div>
+
+<section class="hero"><div class="wrap">
+  <h1>💸 Your wallet — cash out</h1>
+  <p>1,000 coins = $1. PayPal from $5, crypto (LTC/USDT) from $1. Level up to raise your per-withdrawal cap.</p>
+</div></section>
+
+<div class="wrap">
+  <div class="level-box" data-needs-backend>
+    <div class="statrow" style="margin:0">
+      <div class="stat"><div class="num" id="balance-big">—</div><div class="lbl">Your coins</div></div>
+      <div class="stat"><div class="num" id="balance-usd">$—</div><div class="lbl">Cash value</div></div>
+      <div class="stat"><div class="num lvl" id="level-num">Lv 1</div><div class="lbl">Your level</div></div>
+    </div>
+    <p id="level-info" class="muted" style="margin:10px 0 6px"></p>
+    <div class="progress"><div id="level-progress" style="width:0%"></div></div>
+  </div>
+
+  <div class="grid">
+    <div class="card" data-needs-backend>
+      <h2>Log in</h2>
+      <form id="login-form">
+        <label for="login-email">Email</label>
+        <input id="login-email" type="email" required placeholder="you@example.com">
+        <label for="login-password">Password</label>
+        <input id="login-password" type="password" required minlength="8" placeholder="Your password">
+        <button class="btn" type="submit">Log in</button>
+        <p id="login-msg" class="muted"></p>
+      </form>
+    </div>
+    <div class="card" data-needs-backend>
+      <h2>Sign up — free</h2>
+      <form id="signup-form">
+        <label for="signup-email">Email</label>
+        <input id="signup-email" type="email" required placeholder="you@example.com">
+        <label for="signup-password">Password</label>
+        <input id="signup-password" type="password" required minlength="8" placeholder="8+ characters">
+        <button class="btn pink" type="submit">Create account</button>
+        <p id="signup-msg" class="muted"></p>
+      </form>
+      <p class="muted">18+ only. One account per person. 250-coin welcome bonus, unlocked when you complete your first offer.</p>
+    </div>
+  </div>
+
+  <div class="card" data-needs-backend>
+    <h2>Request a withdrawal</h2>
+    <div class="notice">First withdrawal: manually reviewed within <b>24–72h</b>. Payouts are batched <b>Tue + Fri</b> with a daily cap, so withdrawals arrive gradually — that's how we stay able to pay everyone. Your level caps each withdrawal: Lv 1 = $5, Lv 2 = $10, Lv 3 = $25.</div>
+    <form id="withdraw-form">
+      <label for="wd-coins">Coins to withdraw (1,000 coins = $1)</label>
+      <input id="wd-coins" type="number" min="1000" step="500" required placeholder="e.g. 5000">
+      <label for="wd-method">Payout method</label>
+      <select id="wd-method">
+        <option value="paypal">PayPal — min $5 (5,000 coins)</option>
+        <option value="crypto_ltc">Litecoin (LTC) — min $1 (1,000 coins)</option>
+        <option value="crypto_usdt">USDT — min $1 (1,000 coins)</option>
+      </select>
+      <label for="wd-address">PayPal email or crypto wallet address</label>
+      <input id="wd-address" type="text" required placeholder="PayPal email or wallet address">
+      <button class="btn green" type="submit">Request withdrawal</button>
+      <p id="wd-msg" class="muted"></p>
+    </form>
+  </div>
+
+  <div class="card" data-needs-backend>
+    <h2>Your earnings history</h2>
+    <table class="ledger"><thead><tr><th>When</th><th>Source</th><th>Coins</th></tr></thead>
+    <tbody id="ledger-body"><tr><td colspan="3" class="muted">Log in to see your earnings.</td></tr></tbody></table>
+    <p style="margin-top:12px"><a class="btn ghost" href="proof.html">See real payout proof →</a></p>
+  </div>
+
+  <div class="adslot" data-network="medianet">Advertisement</div>
+</div>
+
+<div id="site-footer"></div>
+<script src="js/layout.js"></script>
+<script src="js/ads.js"></script>
+<script src="js/offerwall.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
