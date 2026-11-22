@@ -1,0 +1,145 @@
+/* ==========================================================================
+   TrialEarn — trials-led GPT site. SliceThePie-style look: bright, playful,
+   game-like. Big earning cards, bold gradients, chunky rounded corners,
+   progress bars. Function first — but the look should make you want to play.
+   ========================================================================== */
+:root {
+  --pink: #ff2e7e;
+  --purple: #7c3aed;
+  --violet: #a855f7;
+  --orange: #ff7a1a;
+  --teal: #0d9488;
+  --lime: #65a30d;
+  --blue: #2563eb;
+  --yellow: #facc15;
+  --ink: #1f1235;
+  --mut: #6b7280;
+  --card-radius: 18px;
+}
+* { box-sizing: border-box; }
+body {
+  font-family: "Nunito", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  color: var(--ink);
+  background: linear-gradient(180deg, #fdf4ff 0%, #fff7ed 45%, #f0fdfa 100%);
+  background-attachment: fixed;
+  margin: 0;
+}
+a { color: var(--purple); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.wrap { max-width: 1080px; margin: 0 auto; padding: 0 16px; }
+
+/* --- header --- */
+.topbar { background: #fff; border-bottom: 3px solid #f5d0fe; position: sticky; top: 0; z-index: 40; box-shadow: 0 2px 12px rgba(124, 58, 237, .08); }
+.topbar-in { display: flex; align-items: center; gap: 18px; height: 60px; }
+.logo { font-weight: 900; font-size: 22px; color: var(--ink); letter-spacing: -.5px; }
+.logo b { background: linear-gradient(90deg, var(--pink), var(--purple)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.nav { display: flex; gap: 14px; flex-wrap: wrap; font-size: 14px; font-weight: 700; }
+.nav a { color: #4b5563; padding: 6px 10px; border-radius: 999px; }
+.nav a:hover { background: #f3e8ff; text-decoration: none; }
+.nav a.active { background: var(--purple); color: #fff; }
+.userbox { margin-left: auto; display: flex; align-items: center; gap: 10px; font-size: 14px; }
+.coins {
+  background: linear-gradient(90deg, #fef08a, #fde047);
+  border: 2px solid #eab308; border-radius: 999px; padding: 5px 14px;
+  font-weight: 900; color: #713f12; box-shadow: 0 2px 0 #eab308;
+}
+
+/* --- buttons --- */
+.btn {
+  display: inline-block; background: linear-gradient(90deg, var(--pink), var(--purple));
+  color: #fff; border: 0; border-radius: 999px; padding: 12px 22px; font-weight: 800;
+  cursor: pointer; font-size: 15px; box-shadow: 0 4px 0 rgba(124, 58, 237, .35);
+  transition: transform .08s ease;
+}
+.btn:hover { transform: translateY(-1px); text-decoration: none; filter: brightness(1.05); }
+.btn:active { transform: translateY(2px); box-shadow: 0 1px 0 rgba(124, 58, 237, .35); }
+.btn.pink { background: linear-gradient(90deg, #f472b6, var(--pink)); box-shadow: 0 4px 0 rgba(255, 46, 126, .35); }
+.btn.green { background: linear-gradient(90deg, #22c55e, #059669); box-shadow: 0 4px 0 rgba(5, 150, 105, .35); }
+.btn.orange { background: linear-gradient(90deg, #fb923c, var(--orange)); box-shadow: 0 4px 0 rgba(234, 88, 12, .35); }
+.btn.ghost { background: #fff; color: var(--purple); border: 2px solid #e9d5ff; box-shadow: none; }
+.btn:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+
+/* --- hero --- */
+.hero {
+  background: linear-gradient(120deg, #ff2e7e 0%, #7c3aed 55%, #2563eb 100%);
+  color: #fff; padding: 52px 0 44px; border-radius: 0 0 32px 32px;
+  box-shadow: 0 10px 30px rgba(124, 58, 237, .25);
+}
+.hero h1 { font-size: 38px; margin: 0 0 12px; line-height: 1.15; font-weight: 900; text-shadow: 0 2px 12px rgba(0,0,0,.18); }
+.hero p { font-size: 17px; opacity: .96; margin: 0 0 20px; max-width: 640px; }
+.hero .chiprow { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 18px; }
+.chip {
+  background: rgba(255,255,255,.18); border: 1px solid rgba(255,255,255,.45);
+  border-radius: 999px; padding: 6px 14px; font-weight: 800; font-size: 13px;
+}
+
+/* --- cards --- */
+.card { background: #fff; border: 2px solid #f3e8ff; border-radius: var(--card-radius); padding: 20px; margin: 16px 0; box-shadow: 0 6px 18px rgba(124, 58, 237, .07); }
+.card h2 { margin: 0 0 8px; font-size: 20px; font-weight: 900; }
+.card h3 { margin: 0 0 6px; font-size: 16px; font-weight: 800; }
+.muted { color: var(--mut); font-size: 14px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+
+/* earning category cards — bright top border + big payout */
+.earn-card {
+  background: #fff; border-radius: var(--card-radius); padding: 20px;
+  border: 2px solid #f3e8ff; border-top: 8px solid var(--pink);
+  box-shadow: 0 8px 20px rgba(124, 58, 237, .08);
+  transition: transform .12s ease;
+}
+.earn-card:hover { transform: translateY(-3px); }
+.earn-card.trials { border-top-color: var(--pink); }
+.earn-card.surveys { border-top-color: var(--blue); }
+.earn-card.games { border-top-color: var(--purple); }
+.earn-card.cash { border-top-color: #059669; }
+.earn-card .ico { font-size: 34px; }
+.earn-card h2 { font-size: 19px; margin: 6px 0; }
+.earn-card .pay { font-weight: 900; color: #059669; font-size: 22px; }
+.earn-card .tag { display: inline-block; background: #ede9fe; color: #5b21b6; border-radius: 999px; padding: 3px 12px; font-size: 12px; font-weight: 800; }
+
+/* generic offer rows */
+.offer { border: 2px solid #f3e8ff; border-radius: 14px; padding: 14px; background: #fff; }
+.offer .pay { font-weight: 900; color: #059669; font-size: 18px; }
+.offer .tag { display: inline-block; background: #ede9fe; color: #5b21b6; border-radius: 999px; padding: 2px 10px; font-size: 12px; font-weight: 800; }
+
+table.ledger { width: 100%; border-collapse: collapse; font-size: 14px; }
+table.ledger th, table.ledger td { border-bottom: 1px solid #ede9fe; padding: 9px 6px; text-align: left; }
+.badge { display: inline-block; border-radius: 999px; padding: 3px 12px; font-size: 12px; font-weight: 800; }
+.badge.ok { background: #d1fae5; color: #065f46; }
+.badge.wait { background: #fef3c7; color: #92400e; }
+.badge.no { background: #fee2e2; color: #991b1b; }
+
+input, select, textarea { width: 100%; padding: 12px; border: 2px solid #e9d5ff; border-radius: 12px; font-size: 15px; margin: 6px 0 12px; background: #fff; }
+input:focus, select:focus, textarea:focus { outline: none; border-color: var(--purple); box-shadow: 0 0 0 3px #f3e8ff; }
+label { font-weight: 800; font-size: 14px; }
+
+/* --- level / progress (game-like) --- */
+.level-box { background: linear-gradient(120deg, #fef9c3, #fde68a); border: 2px solid #facc15; border-radius: var(--card-radius); padding: 16px 20px; margin: 16px 0; }
+.level-box .lvl { font-size: 26px; font-weight: 900; color: #713f12; }
+.progress { height: 16px; background: #fff; border: 2px solid #facc15; border-radius: 999px; overflow: hidden; }
+.progress > div { height: 100%; background: linear-gradient(90deg, #facc15, var(--orange), var(--pink)); border-radius: 999px; transition: width .4s ease; }
+.statrow { display: flex; gap: 12px; flex-wrap: wrap; margin: 12px 0; }
+.stat { flex: 1; min-width: 130px; background: #fff; border: 2px solid #f3e8ff; border-radius: 14px; padding: 14px; text-align: center; }
+.stat .num { font-size: 24px; font-weight: 900; color: var(--purple); }
+.stat .lbl { font-size: 12px; font-weight: 800; color: var(--mut); text-transform: uppercase; letter-spacing: .5px; }
+
+footer { background: #1f1235; color: #d1d5db; padding: 30px 0; margin-top: 44px; font-size: 14px; border-radius: 24px 24px 0 0; }
+footer a { color: #e9d5ff; }
+.sticky-ad { position: fixed; left: 0; right: 0; bottom: 0; background: #fff; border-top: 2px solid #f3e8ff; z-index: 30; text-align: center; min-height: 50px; box-shadow: 0 -4px 16px rgba(0,0,0,.06); }
+.sticky-ad .close-ad { position: absolute; right: 8px; top: 4px; border: 0; background: none; font-size: 20px; cursor: pointer; color: #6b7280; }
+.adslot { background: #faf5ff; border: 2px dashed #d8b4fe; border-radius: 12px; text-align: center; color: #a78bfa; font-size: 12px; font-weight: 700; padding: 12px; margin: 12px 0; }
+.notice { background: #eff6ff; border: 2px solid #bfdbfe; border-radius: 12px; padding: 12px; font-size: 14px; margin: 12px 0; }
+.warn { background: #fffbeb; border: 2px solid #fde68a; border-radius: 12px; padding: 12px; font-size: 14px; margin: 12px 0; }
+.steps { counter-reset: step; list-style: none; padding: 0; }
+.steps li { counter-increment: step; position: relative; padding: 0 0 14px 44px; }
+.steps li::before {
+  content: counter(step); position: absolute; left: 0; top: 0;
+  width: 30px; height: 30px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--pink), var(--purple)); color: #fff;
+  font-weight: 900; text-align: center; line-height: 30px; font-size: 15px;
+}
+@media (max-width: 640px) {
+  .hero h1 { font-size: 28px; }
+  .nav { gap: 6px; }
+  .nav a { padding: 5px 8px; }
+}
