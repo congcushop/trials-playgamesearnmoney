@@ -12,7 +12,7 @@
 <meta property="og:url" content="https://trials.playgamesearnmoney.com/videos.html">
 <meta property="og:site_name" content="TrialEarn">
 <meta name="twitter:card" content="summary">
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/style.css?v=3">
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
@@ -54,10 +54,13 @@
       "Meanwhile, trials, surveys and games are live.</div>";
     return;
   }
-  box.innerHTML = '<p><button class="btn pink" id="watch-video-btn">▶ Watch a video — earn coins</button> ' +
+  box.innerHTML = '<p><button class="btn amber" id="watch-video-btn">▶ Watch a video — earn coins</button> ' +
     '<span id="video-msg" class="muted"></span></p>' +
     '<div id="video-slot"></div>';
   document.getElementById("watch-video-btn").addEventListener("click", function () {
+    var btn = document.getElementById("watch-video-btn");
+    if (btn.disabled) return; // load the provider tag only once per page view
+    btn.disabled = true;
     document.getElementById("video-msg").textContent = "Loading video…";
     var s = document.createElement("script");
     s.src = CFG.REWARDED_VIDEO_ZONE_URL;

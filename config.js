@@ -23,9 +23,9 @@ window.TRIALEARN_CONFIG = {
   SIGNUP_BONUS_COINS: 250, // locked until first offer completes
   CHECKIN_COINS: 10, // per day; day-7 streak = 100
   CHECKIN_STREAK_BONUS_COINS: 100,
-  WITHDRAW_MIN_PAYPAL_USD: 5,
-  WITHDRAW_MIN_CRYPTO_USD: 1,
-  LEVEL_CAPS_USD: { 1: 5, 2: 10, 3: 25 }, // max per withdrawal by level
+  WITHDRAW_MIN_PAYPAL_USD: 10,
+  WITHDRAW_MIN_CRYPTO_USD: 3,
+  LEVEL_CAPS_USD: { 1: 10, 2: 25, 3: 50 }, // max per withdrawal by level
   LEVEL_THRESHOLDS_OFFERS: { 2: 10, 3: 50 }, // offers completed to level up
   FIRST_WITHDRAWAL_HOLD_HOURS: "24–72h + manual review",
   PAYOUT_DAYS: "Tue + Fri (batched, daily cap applies)",
