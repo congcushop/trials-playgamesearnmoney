@@ -22,12 +22,18 @@
   window.TRIALEARN_BACKEND_READY = backendReady;
 
   function demoNotice() {
+    // Prepend (don't replace): the forms, stats and ledger stay visible so
+    // visitors can see how the site works; the banner is the honest part.
     document.querySelectorAll("[data-needs-backend]").forEach((el) => {
-      el.innerHTML =
-        '<div class="warn"><b>Backend not connected yet.</b> ' +
+      if (el.querySelector(".demo-warn")) return;
+      const banner = document.createElement("div");
+      banner.className = "warn demo-warn";
+      banner.innerHTML =
+        "<b>Backend not connected yet.</b> " +
         "Sign-up, balances and withdrawals go live once the shared Supabase " +
         "backend is connected (config.js → SUPABASE_URL / SUPABASE_ANON_KEY). " +
-        "Nothing here is a real balance.</div>";
+        "Nothing here is a real balance.";
+      el.prepend(banner);
     });
   }
 
@@ -44,6 +50,20 @@
           if (msg) msg.textContent = "Backend not connected yet — sign-up/login go live once Supabase is connected.";
         });
       });
+      // Demo mode: buttons that otherwise do nothing get an honest message.
+      const checkinBtn = $("#checkin-btn");
+      if (checkinBtn) {
+        checkinBtn.addEventListener("click", () => {
+          const msg = $("#checkin-msg");
+          if (msg) msg.textContent = "Backend not connected yet — check-ins go live once Supabase is connected.";
+        });
+      }
+      const copyBtn = $("#copy-ref");
+      if (copyBtn) {
+        copyBtn.addEventListener("click", () => {
+          copyBtn.textContent = "Log in to get your link";
+        });
+      }
       await renderProofs();
       return;
     }
@@ -147,15 +167,15 @@
 
   function renderLevel() {
     const lvl = profile?.level || 1;
-    const caps = CFG.LEVEL_CAPS_USD || { 1: 5, 2: 10, 3: 25 };
+    const caps = CFG.LEVEL_CAPS_USD || { 1: 10, 2: 25, 3: 50 };
     const num = $("#level-num");
     if (num) num.textContent = "Lv " + lvl;
     const el = $("#level-info");
     if (el) {
       el.innerHTML =
         "Level <b>" + lvl + "</b> — max $" + caps[lvl] + " per withdrawal. " +
-        "Complete " + (CFG.LEVEL_THRESHOLDS_OFFERS?.[2] || 10) + " offers to reach Level 2 ($10/withdrawal), " +
-        (CFG.LEVEL_THRESHOLDS_OFFERS?.[3] || 50) + " offers for Level 3 ($25/withdrawal).";
+        "Complete " + (CFG.LEVEL_THRESHOLDS_OFFERS?.[2] || 10) + " offers to reach Level 2 ($25/withdrawal), " +
+        (CFG.LEVEL_THRESHOLDS_OFFERS?.[3] || 50) + " offers for Level 3 ($50/withdrawal).";
     }
     const bar = $("#level-progress");
     if (bar && profile) {
@@ -198,6 +218,7 @@
         const ref = new URLSearchParams(location.search).get("ref") || null;
         const { data, error } = await sb.auth.signUp({ email, password });
         if (error) { msg.textContent = error.message; return; }
+        if (!data.user) { msg.textContent = "Account created! Check your email to confirm, then log in."; return; }
         // Create the profile row (referral code + optional referrer).
         const code = (email.split("@")[0] || "user").replace(/[^a-z0-9]/gi, "").slice(0, 12) +
           Math.random().toString(36).slice(2, 6);
@@ -254,7 +275,7 @@
           msg.textContent = "Minimum is $" + minUsd + " (" + (minUsd * 1000) + " coins) for " + method + ".";
           return;
         }
-        const capUsd = (CFG.LEVEL_CAPS_USD || { 1: 5 })[profile?.level || 1];
+        const capUsd = (CFG.LEVEL_CAPS_USD || { 1: 10 })[profile?.level || 1];
         if (coins > capUsd * 1000) {
           msg.textContent = "Your level allows max $" + capUsd + " per withdrawal. Level up to raise the cap.";
           return;

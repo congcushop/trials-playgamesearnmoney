@@ -40,7 +40,7 @@
     el.setAttribute("data-mounted", "1");
     const frame = document.createElement("iframe");
     frame.src = fillUrl(url);
-    frame.style.cssText = "width:100%;height:720px;border:2px solid #f3e8ff;border-radius:16px;background:#fff";
+    frame.style.cssText = "width:100%;height:720px;border:2px solid #dbeafe;border-radius:16px;background:#fff";
     frame.setAttribute("title", "Offer wall — " + kind);
     frame.setAttribute("allow", "clipboard-write");
     el.innerHTML = "";

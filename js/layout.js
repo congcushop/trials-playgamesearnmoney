@@ -24,7 +24,7 @@
   if (header) {
     header.innerHTML =
       '<div class="topbar"><div class="wrap topbar-in">' +
-      '<a class="logo" href="index.html">Trial<b>Earn</b></a>' +
+      '<a class="logo" href="index.html">🎁 Trial<b>Earn</b></a>' +
       '<nav class="nav">' +
       NAV.map(([href, label]) =>
         '<a href="' + href + '"' + (href === here ? ' class="active"' : "") + ">" + label + "</a>",
@@ -41,7 +41,7 @@
     footer.innerHTML =
       '<footer><div class="wrap">' +
       '<p><b style="color:#fff">TrialEarn</b> — Get paid for free trials, surveys and games. ' +
-      "1,000 coins = $1. Cash out from $5 PayPal / $1 crypto.</p>" +
+      "1,000 coins = $1. Cash out from $10 PayPal / $3 crypto.</p>" +
       '<p><a href="about.html">About</a> · <a href="contact.html">Contact</a> · ' +
       '<a href="terms.html">Terms of Service</a> · <a href="privacy.html">Privacy Policy</a> · ' +
       '<a href="proof.html">Payout Proof</a></p>' +
