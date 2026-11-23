@@ -55,9 +55,41 @@ window.TRIALEARN_CONFIG = {
   MUSIC_STREAM_URL: "",
 
   // --- Cashback shopping (Phase 2, now installed) --------------------------
-  // Affiliate store list. Add {name, url, cashback} entries once affiliate
-  // accounts are approved. Empty = section shows an honest "soon" state.
-  CASHBACK_STORES: [],
+  // LIVE stores — the same 6 approved Rakuten/Impact deals as site #1
+  // (js/config.js cashback.stores). Rates are the approved offer rates —
+  // never invent a rate or a tracking link. Wondershare is approved on
+  // BOTH networks at 30% (Impact Brand 59772 AND Rakuten MID 37160 /
+  // Offer 2137962) — ONE card, using the Rakuten deep link, because the
+  // Impact tracking URL needs an {Ad ID} chosen per asset in the Impact
+  // dashboard and no Ad ID is on file. Do NOT invent an Ad ID.
+  // The user gets 50% of each store's commission as coins.
+  // Shape: { name, url, cashback } — cashback is the display string.
+  CASHBACK_STORES: [
+    { name: "Wondershare", category: "Software", cashback: "30%",
+      desc: "Video, PDF & data tools — Dr.Fone Full Toolkit $139.95, Recoverit $79.99, MobileTrans $54.99.",
+      network: "Rakuten + Impact",
+      url: "https://click.linksynergy.com/link?id=%2fg%2fjHJaZtI4&offerid=2137962&type=2&murl=https%3A%2F%2Fwww.wondershare.com" },
+    { name: "Keeper Security", category: "Security Software", cashback: "10%",
+      desc: "Password manager & cybersecurity for families and teams. 10% base, up to $5 per action.",
+      network: "Rakuten",
+      url: "https://click.linksynergy.com/link?id=%2fg%2fjHJaZtI4&offerid=2065364&type=2&murl=https%3A%2F%2Fwww.keepersecurity.com" },
+    { name: "Waterdrop Filter", category: "Home & Kitchen", cashback: "8%",
+      desc: "Reverse-osmosis & gravity water filters for clean drinking water.",
+      network: "Rakuten",
+      url: "https://click.linksynergy.com/link?id=%2fg%2fjHJaZtI4&offerid=1888875&type=2&murl=https%3A%2F%2Fwww.waterdropfilter.com" },
+    { name: "Easy Plumbing", category: "Home & Garden", cashback: "5%",
+      desc: "KOHLER & Moen fixtures, faucets, sinks and bath furniture.",
+      network: "Rakuten",
+      url: "https://click.linksynergy.com/link?id=%2fg%2fjHJaZtI4&offerid=1898982&type=2&murl=https%3A%2F%2Fwww.easyplumbing.com" },
+    { name: "KitchenAid", category: "Appliances", cashback: "2%",
+      desc: "Stand mixers & major kitchen appliances.",
+      network: "Rakuten", badge: "Ends 7 Dec 2026",
+      url: "https://click.linksynergy.com/link?id=%2fg%2fjHJaZtI4&offerid=1972089&type=2&murl=https%3A%2F%2Fwww.kitchenaid.com" },
+    { name: "Paw.com", category: "Pet Supplies", cashback: "2%",
+      desc: "Pet beds, carriers & accessories.",
+      network: "Rakuten",
+      url: "https://click.linksynergy.com/link?id=%2fg%2fjHJaZtI4&offerid=1783560&type=2&murl=https%3A%2F%2Fwww.paw.com" },
+  ],
 
   // --- Fraud layer ----------------------------------------------------------
   TURNSTILE_SITE_KEY: "", // Cloudflare Turnstile site key (signup/login/withdraw)
