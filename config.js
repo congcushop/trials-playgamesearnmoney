@@ -13,8 +13,8 @@ window.TRIALEARN_CONFIG = {
   SUPPORT_EMAIL: "support@playgamesearnmoney.com",
 
   // --- Shared Supabase backend (same project as sites #1 and #2) -----------
-  SUPABASE_URL: "", // e.g. "https://xxxxxxxx.supabase.co"
-  SUPABASE_ANON_KEY: "", // publishable anon key only — never the service key
+  SUPABASE_URL: "https://hqkjcwjqxhbhenvanteu.supabase.co", // e.g. "https://xxxxxxxx.supabase.co"
+  SUPABASE_ANON_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhxa2pjd2pxeGhiaGVudmFudGV1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTUzODUxMjEsImV4cCI6MjExMDk2MTEyMX0.y_J73wKX30ZSkB6iXtLpm5dvB3P_jpbHJOQzdC4rbGY", // publishable anon key only — never the service key
 
   // --- Coin economy (LOCKED — do not change without the owner) -------------
   COINS_PER_DOLLAR: 1000,
