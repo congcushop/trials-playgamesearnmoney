@@ -158,3 +158,22 @@ footer a { color: #c7d2fe; }
   .nav::-webkit-scrollbar { display: none; }
   .nav a { flex: 0 0 auto; white-space: nowrap; padding: 5px 8px; }
 }
+
+/* ==========================================================================
+   Auth gating (round-2 FOUC fix, 23 Nov 2026). Auth-dependent content must
+   NEVER render before the session is known: the boot JS adds .auth-ready
+   to <body> once getSession() resolves, and .auth-logged-in when a user
+   is signed in. Until then, everything auth-dependent stays hidden —
+   no "…" balances, no login forms flashing at a logged-in user.
+   Usage: data-user-only (balance, check-in button, withdraw form, ...),
+   data-guest-only (login/signup forms, "Log in to see…" rows, ...),
+   data-auth-gate (content fine for both states but must not render
+   mid-load, e.g. the [data-balance] card on public earn pages).
+   A 6s safety net in the boot JS adds .auth-ready even if the session
+   check hangs, so the page can never stay blank forever.
+   ========================================================================== */
+body:not(.auth-ready) [data-auth-gate],
+body:not(.auth-ready) [data-user-only],
+body:not(.auth-ready) [data-guest-only] { display: none !important; }
+body.auth-logged-in [data-guest-only] { display: none !important; }
+body:not(.auth-logged-in) [data-user-only] { display: none !important; }
