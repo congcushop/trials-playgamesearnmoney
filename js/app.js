@@ -38,8 +38,14 @@
   }
 
   async function init() {
+    // Safety net: if the session check hangs, show guest content after 6s
+    // instead of leaving auth-gated content hidden forever.
+    setTimeout(() => document.body.classList.add("auth-ready"), 6000);
     if (!backendReady) {
       demoNotice();
+      // Demo mode: no session can exist, so reveal guest content now
+      // (otherwise the CSS auth gating would hide everything forever).
+      document.body.classList.add("auth-ready");
       const bal = $("#coin-balance");
       if (bal) bal.textContent = "— coins";
       // Demo mode: forms show an honest message instead of submitting.
@@ -70,7 +76,6 @@
     sb = window.supabase.createClient(CFG.SUPABASE_URL, CFG.SUPABASE_ANON_KEY);
     const { data } = await sb.auth.getSession();
     user = data?.session?.user || null;
-    renderAuthArea(); // always render: logged-in OR logged-out, never stale
     if (user) {
       const { data: prof } = await sb
         .from("profiles")
@@ -83,10 +88,16 @@
       renderReferral();
       renderLevel();
       await refreshCheckinState();
-      // Hide the mid-page login/signup forms once logged in (rewards.html).
-      const authCards = document.getElementById("auth-cards");
-      if (authCards) authCards.style.display = "none";
     }
+    // Round-2 FOUC fix: reveal auth-dependent content ONLY once the
+    // session is known AND (for logged-in users) the balance is loaded —
+    // the header auth area, the balance stats and the ledger must never
+    // flash a "—" or a login form to a logged-in user. The mid-page
+    // login/signup forms (rewards.html #auth-cards) are hidden for
+    // logged-in users by the data-guest-only attribute in the HTML.
+    document.body.classList.add("auth-ready");
+    document.body.classList.toggle("auth-logged-in", !!user);
+    renderAuthArea(); // always render: logged-in OR logged-out, never stale
     await renderProofs();
     bindForms();
   }

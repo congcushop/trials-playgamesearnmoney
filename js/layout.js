@@ -31,10 +31,13 @@
       ).join("") +
       "</nav>" +
       '<div class="userbox">' +
-      '<span class="coins" id="coin-balance" title="1,000 coins = $1">— coins</span>' +
+      // Round-2: the coin chip is user-only (guests saw a meaningless
+      // "— coins" forever), and the auth area stays hidden until the
+      // session is known (app.js adds .auth-ready / .auth-logged-in).
+      '<span class="coins" id="coin-balance" title="1,000 coins = $1" data-user-only>— coins</span>' +
       // Neutral loading state: the real "Log in" link is rendered by app.js
       // only AFTER the session check, so a logged-in user never sees it.
-      '<span id="auth-area"><span class="muted">…</span></span>' +
+      '<span id="auth-area" data-auth-gate><span class="muted">…</span></span>' +
       "</div></div></div>";
   }
 
