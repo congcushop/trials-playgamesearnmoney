@@ -31,16 +31,16 @@
 
 <div class="wrap">
   <div class="level-box" data-needs-backend>
-    <div class="statrow" style="margin:0">
+    <div class="statrow" style="margin:0" data-user-only>
       <div class="stat"><div class="num" id="balance-big">—</div><div class="lbl">Your coins</div></div>
       <div class="stat"><div class="num" id="balance-usd">$—</div><div class="lbl">Cash value</div></div>
       <div class="stat"><div class="num lvl" id="level-num">Lv 1</div><div class="lbl">Your level</div></div>
     </div>
-    <p id="level-info" class="muted" style="margin:10px 0 6px"></p>
-    <div class="progress"><div id="level-progress" style="width:0%"></div></div>
+    <p id="level-info" class="muted" style="margin:10px 0 6px" data-user-only></p>
+    <div class="progress" data-user-only><div id="level-progress" style="width:0%"></div></div>
   </div>
 
-  <div class="grid" id="auth-cards">
+  <div class="grid" id="auth-cards" data-guest-only>
     <div class="card" data-needs-backend>
       <h2>Log in</h2>
       <form id="login-form">
@@ -66,7 +66,7 @@
     </div>
   </div>
 
-  <div class="card" data-needs-backend>
+  <div class="card" data-needs-backend data-user-only>
     <h2>Request a withdrawal</h2>
     <div class="notice">First withdrawal: manually reviewed within <b>24–72h</b>. Payouts are batched <b>Tue + Fri</b> with a daily cap, so withdrawals arrive gradually — that's how we stay able to pay everyone. Your level caps each withdrawal: Lv 1 = $10, Lv 2 = $25, Lv 3 = $50.</div>
     <form id="withdraw-form">
@@ -88,7 +88,7 @@
   <div class="card" data-needs-backend>
     <h2>Your earnings history</h2>
     <table class="ledger"><thead><tr><th>When</th><th>Source</th><th>Coins</th></tr></thead>
-    <tbody id="ledger-body"><tr><td colspan="3" class="muted">Log in to see your earnings.</td></tr></tbody></table>
+    <tbody id="ledger-body"><tr data-guest-only><td colspan="3" class="muted">Log in to see your earnings.</td></tr></tbody></table>
     <p style="margin-top:12px"><a class="btn ghost" href="proof.html">See real payout proof →</a></p>
   </div>
 

@@ -70,23 +70,24 @@
   </div>
 
   <div class="level-box" data-needs-backend>
-    <div class="statrow" style="margin:0">
+    <div class="statrow" style="margin:0" data-user-only>
       <div class="stat"><div class="num" id="balance-big">—</div><div class="lbl">Your coins</div></div>
       <div class="stat"><div class="num" id="balance-usd">$—</div><div class="lbl">Cash value</div></div>
       <div class="stat"><div class="num lvl" id="level-num">Lv 1</div><div class="lbl">Your level</div></div>
     </div>
-    <p id="level-info" class="muted" style="margin:10px 0 6px"></p>
-    <div class="progress"><div id="level-progress" style="width:0%"></div></div>
+    <p id="level-info" class="muted" style="margin:10px 0 6px" data-user-only></p>
+    <div class="progress" data-user-only><div id="level-progress" style="width:0%"></div></div>
     <h3 style="margin-top:16px">Recent earnings</h3>
     <table class="ledger"><thead><tr><th>When</th><th>Source</th><th>Coins</th></tr></thead>
-    <tbody id="ledger-body"><tr><td colspan="3" class="muted">Log in to see your earnings.</td></tr></tbody></table>
-    <p style="margin-top:12px"><a class="btn ghost" href="rewards.html">Log in / Sign up</a></p>
+    <tbody id="ledger-body"><tr data-guest-only><td colspan="3" class="muted">Log in to see your earnings.</td></tr></tbody></table>
+    <p style="margin-top:12px" data-guest-only><a class="btn ghost" href="rewards.html">Log in / Sign up</a></p>
   </div>
 
   <div class="card">
     <h2>Daily check-in — free coins every day</h2>
-    <p class="muted">Log in daily and claim 10 coins. Keep a 7-day streak for a 100-coin bonus. Small rewards, every day.</p>
-    <button class="btn" id="checkin-btn">Claim today's 10 coins</button>
+    <p class="muted">Check in once a day — the same check-in is shared across our 3 sites, so claim it wherever you are. Keep a 7-day streak for a 100-coin bonus. The exact amount is shown when you claim.</p>
+    <button class="btn" id="checkin-btn" data-user-only>Claim today's check-in</button>
+    <a class="btn ghost" href="rewards.html" data-guest-only>Log in to claim</a>
     <span id="checkin-msg" class="muted"></span>
   </div>
 
