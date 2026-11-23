@@ -36,7 +36,7 @@ window.TRIALEARN_CONFIG = {
   // Offerwall.GG: Placements → your placement → Embed (iframe URL).
   // AdGem: Property → Web Offerwall → embed URL (contains your app id).
   // The {USER_ID} token is replaced at runtime with the signed-in user id.
-  OFFERWALL_GG_IFRAME_URL: "", // e.g. "https://offerwall.gg/wall/XXXX?user={USER_ID}"
+  OFFERWALL_GG_IFRAME_URL: "https://offerwall.gg/wall/5cdd431f1439b328ed3d0da1e0990f2a?userId={USER_ID}", // e.g. "https://offerwall.gg/wall/XXXX?userId={USER_ID}"
   ADGEM_WALL_URL: "", // e.g. "https://api.adgem.com/v1/wall?appid=XXXX&playerid={USER_ID}"
 
   // --- Extra survey routers -------------------------------------------------
