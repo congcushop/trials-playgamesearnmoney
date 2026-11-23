@@ -34,7 +34,7 @@ a:hover { text-decoration: underline; }
 
 /* --- header --- */
 .topbar { background: #fff; border-bottom: 3px solid #bfdbfe; position: sticky; top: 0; z-index: 40; box-shadow: 0 2px 12px rgba(79, 70, 229, .08); }
-.topbar-in { display: flex; align-items: center; gap: 18px; height: 60px; }
+.topbar-in { display: flex; align-items: center; gap: 18px; min-height: 60px; }
 .logo { font-weight: 900; font-size: 22px; color: var(--ink); letter-spacing: -.5px; }
 .logo b { background: linear-gradient(90deg, var(--sky), var(--indigo)); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .nav { display: flex; gap: 14px; flex-wrap: wrap; font-size: 14px; font-weight: 700; }
@@ -148,6 +148,13 @@ footer a { color: #c7d2fe; }
 }
 @media (max-width: 640px) {
   .hero h1 { font-size: 28px; }
-  .nav { gap: 6px; }
-  .nav a { padding: 5px 8px; }
+  /* Mobile header: never a fixed height — the bar grows instead of spilling
+     nav links over the hero. Nav becomes one scrollable row (no wrapping),
+     so long/translated labels can never overlap page content. */
+  .topbar-in { flex-wrap: wrap; gap: 8px 12px; padding: 8px 0; }
+  .logo { font-size: 20px; }
+  .coins { padding: 4px 10px; font-size: 13px; }
+  .nav { order: 3; flex: 1 1 100%; flex-wrap: nowrap; overflow-x: auto; gap: 6px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+  .nav::-webkit-scrollbar { display: none; }
+  .nav a { flex: 0 0 auto; white-space: nowrap; padding: 5px 8px; }
 }
