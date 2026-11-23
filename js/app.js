@@ -70,20 +70,22 @@
     sb = window.supabase.createClient(CFG.SUPABASE_URL, CFG.SUPABASE_ANON_KEY);
     const { data } = await sb.auth.getSession();
     user = data?.session?.user || null;
+    renderAuthArea(); // always render: logged-in OR logged-out, never stale
     if (user) {
       const { data: prof } = await sb
         .from("profiles")
         .select("*")
         .eq("id", user.id)
-        .single();
+        .maybeSingle();
       profile = prof || null;
       if (window.TRIALEARN_SET_USER) window.TRIALEARN_SET_USER(user.id);
-      renderAuthArea();
       await refreshBalance();
       renderReferral();
       renderLevel();
-    } else {
-      renderAuthArea();
+      await refreshCheckinState();
+      // Hide the mid-page login/signup forms once logged in (rewards.html).
+      const authCards = document.getElementById("auth-cards");
+      if (authCards) authCards.style.display = "none";
     }
     await renderProofs();
     bindForms();
@@ -125,6 +127,10 @@
         await sb.auth.signOut();
         location.reload();
       });
+    } else {
+      // Logged-out state is rendered ONLY once the session check is done
+      // (init calls this after getSession), never as a static placeholder.
+      area.innerHTML = '<a class="btn ghost" href="rewards.html">Log in</a>';
     }
   }
 
@@ -163,6 +169,24 @@
       return "<tr><td>" + when + "</td><td>" + escapeHtml(r.source) + "</td><td>" +
         sign + fmtCoins(r.amount_coins) + "</td></tr>";
     }).join("");
+  }
+
+  // Grey out the check-in button when today is already claimed, so the
+  // page never shows a live "Claim" button next to an "already done"
+  // message. Runs after the session is known.
+  async function refreshCheckinState() {
+    const btn = $("#checkin-btn");
+    if (!btn || !user) return;
+    const today = new Date().toISOString().slice(0, 10);
+    const { data } = await sb.from("daily_checkins")
+      .select("coins_awarded, streak").eq("user_id", user.id)
+      .eq("checkin_date", today).maybeSingle();
+    if (data) {
+      btn.disabled = true;
+      btn.textContent = "Checked in ✓ +" + data.coins_awarded + " coins";
+      const msg = $("#checkin-msg");
+      if (msg) msg.textContent = "Already checked in today — come back tomorrow!";
+    }
   }
 
   function renderLevel() {
@@ -216,45 +240,41 @@
         const password = $("#signup-password").value;
         const msg = $("#signup-msg");
         const ref = new URLSearchParams(location.search).get("ref") || null;
-        const { data, error } = await sb.auth.signUp({ email, password });
+        const { data, error } = await sb.auth.signUp({
+          email, password, options: { data: { site: "trials" } },
+        });
         if (error) { msg.textContent = error.message; return; }
         if (!data.user) { msg.textContent = "Account created! Check your email to confirm, then log in."; return; }
-        // Create the profile row (referral code + optional referrer).
-        const code = (email.split("@")[0] || "user").replace(/[^a-z0-9]/gi, "").slice(0, 12) +
-          Math.random().toString(36).slice(2, 6);
-        let referredBy = null;
+        // The profile row + referral_code are created by the auth.users
+        // trigger (see shared fix-checkin-grants.sql). Attribution of a
+        // referrer goes through the apply_referral RPC (SECURITY DEFINER).
         if (ref) {
-          const { data: r } = await sb.from("profiles").select("id").eq("referral_code", ref).single();
-          referredBy = r?.id || null;
-        }
-        await sb.from("profiles").insert({
-          id: data.user.id, email, site: "trials",
-          referral_code: code, referred_by: referredBy,
-        });
-        if (referredBy) {
-          await sb.from("referrals").insert({ referrer_id: referredBy, referred_id: data.user.id });
+          await sb.rpc("apply_referral", { p_user_id: data.user.id, p_code: ref });
         }
         msg.textContent = "Account created! Check your email to confirm, then log in.";
       });
     }
 
     // --- Daily check-in ---
+    // Server-side via the claim_checkin RPC: one row per user per day, the
+    // ledger credit is written by the function. The old code inserted into
+    // daily_checkins directly (42501: no GRANT) and then into the ledger
+    // (forbidden by RLS by design), and showed "Already checked in" for
+    // EVERY error — including the permission error.
     const checkinBtn = $("#checkin-btn");
     if (checkinBtn) {
       checkinBtn.addEventListener("click", async () => {
         if (!user) { location.href = "rewards.html"; return; }
-        const today = new Date().toISOString().slice(0, 10);
-        const { error } = await sb.from("daily_checkins").insert({
-          user_id: user.id, checkin_date: today,
-          coins_awarded: CFG.CHECKIN_COINS || 10,
-        });
         const msg = $("#checkin-msg");
-        if (error) { msg.textContent = "Already checked in today — come back tomorrow!"; return; }
-        await sb.from("coin_transactions").insert({
-          user_id: user.id, amount_coins: CFG.CHECKIN_COINS || 10,
-          source: "checkin", idempotency_key: "checkin:" + user.id + ":" + today,
-        });
-        msg.textContent = "+" + (CFG.CHECKIN_COINS || 10) + " coins! See you tomorrow.";
+        const { data, error } = await sb.rpc("claim_checkin", { p_site: "trials" });
+        if (error) { msg.textContent = "Check-in failed: " + error.message; return; }
+        if (data && data.already) {
+          msg.textContent = "Already checked in today — come back tomorrow!";
+        } else {
+          msg.textContent = "+" + ((data && data.coins) || 10) + " coins! See you tomorrow.";
+        }
+        checkinBtn.disabled = true;
+        checkinBtn.textContent = "Checked in ✓";
         await refreshBalance();
       });
     }

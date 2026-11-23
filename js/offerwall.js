@@ -30,10 +30,20 @@
     };
     const url = map[kind] || "";
     if (!url) {
+      // Honest placeholder for a wall that is genuinely not configured yet.
+      // Name the wall so it is never mistaken for the live one above it,
+      // and never mention tables/steps that do not exist.
+      const names = {
+        adgem: "AdGem",
+        cpx: "CPX Research",
+        theoremreach: "TheoremReach",
+        offerwall_gg: "Offerwall.GG",
+      };
+      const name = names[kind] || kind;
       el.innerHTML =
-        '<div class="warn"><b>Offers are being connected.</b> ' +
-        "This wall goes live once the offerwall account is approved and the " +
-        "placement URL is added. Check back soon — or try the other ways to earn below.</div>";
+        '<div class="warn"><b>More offers (' + name + ') are coming soon.</b> ' +
+        "This wall is being connected — the Offerwall.GG wall above is live " +
+        "and already shows offers. Check back soon for a second wall here.</div>";
       return;
     }
     if (el.getAttribute("data-mounted") === "1") return;

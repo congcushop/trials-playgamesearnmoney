@@ -32,7 +32,9 @@
       "</nav>" +
       '<div class="userbox">' +
       '<span class="coins" id="coin-balance" title="1,000 coins = $1">— coins</span>' +
-      '<span id="auth-area"><a class="btn ghost" href="rewards.html">Log in</a></span>' +
+      // Neutral loading state: the real "Log in" link is rendered by app.js
+      // only AFTER the session check, so a logged-in user never sees it.
+      '<span id="auth-area"><span class="muted">…</span></span>' +
       "</div></div></div>";
   }
 
